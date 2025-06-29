@@ -1,0 +1,1859 @@
+/* Importando a fonte */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+/* Definição das variáveis de cor para os temas */
+:root {
+    /* TEMA CLARO (Padrão) */
+    --bg-primary: #ffffff;
+    --bg-secondary: #f7f7f7;
+    --text-primary: #1a202c;
+    --text-secondary: #4a5568;
+    --accent-primary: #3182ce; /* Azul primário */
+    --accent-secondary: #2b6cb0; /* Azul mais escuro */
+    --border-color: #e2e8f0;
+    --error-color: #e53e3e; /* Vermelho para erros */
+    --success-color: #38a169; /* Verde para sucesso */
+
+    /* Variáveis RGB para sombras e fundos translúcidos */
+    --accent-primary-rgb: 49, 130, 206;
+    --error-color-rgb: 229, 62, 62;
+    --success-color-rgb: 56, 161, 105;
+}
+
+[data-theme='dark'] {
+    /* TEMA ESCURO */
+    --bg-primary: #1a202c;
+    --bg-secondary: #2d3748;
+    --text-primary: #edf2f7;
+    --text-secondary: #a0aec0;
+    --accent-primary: #4299e1; /* Azul claro para tema escuro */
+    --accent-secondary: #2c5282; /* Azul escuro para tema escuro */
+    --border-color: #4a5568;
+    --error-color: #fc8181; /* Vermelho mais claro para erros */
+    --success-color: #68d391; /* Verde mais claro para sucesso */
+
+    /* Variáveis RGB para sombras e fundos translúcidos */
+    --accent-primary-rgb: 66, 153, 225;
+    --error-color-rgb: 252, 129, 129;
+    --success-color-rgb: 104, 211, 145;
+}
+
+/* Estilos Globais */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: var(--bg-primary);
+    color: var(--text-secondary);
+    transition: background-color 0.3s ease, color 0.3s ease;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* Garante que o main ocupe espaço e tenha padding */
+main {
+    padding: 2rem 1rem;
+    max-width: 1200px;
+    margin: 0 auto; /* Centraliza o conteúdo principal */
+}
+
+/* Barra de Navegação */
+.navbar {
+    background-color: var(--bg-primary);
+    padding: 1rem 2rem;
+    border-bottom: 1px solid var(--border-color);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.navbar-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.navbar-logo {
+    color: var(--text-primary);
+    text-decoration: none;
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+.navbar-logo i {
+    color: var(--accent-primary);
+    margin-right: 0.5rem;
+}
+
+.navbar-menu {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.navbar-menu a {
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-weight: 500;
+    padding: 0.5rem 0.8rem;
+    border-radius: 4px;
+    transition: all 0.2s ease-in-out;
+}
+
+.navbar-menu a:hover {
+    color: var(--accent-primary);
+    background-color: var(--bg-secondary);
+}
+
+.navbar-welcome {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    margin-right: 1rem;
+    font-weight: 500;
+}
+
+
+/* Botão Seletor de Tema */
+.theme-toggle-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1.2rem;
+    color: var(--text-secondary);
+    padding: 0.5rem;
+    border-radius: 50%; /* Faz o botão redondo */
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+.theme-toggle-btn:hover {
+    color: var(--accent-primary);
+    background-color: var(--bg-secondary);
+}
+
+/* Lógica para mostrar o ícone certo (sol ou lua) */
+[data-theme='light'] .icon-dark { display: inline-block; }
+[data-theme='light'] .icon-light { display: none; }
+[data-theme='dark'] .icon-dark { display: none; }
+[data-theme='dark'] .icon-light { display: inline-block; color: #ffc107; /* Cor amarela para o sol */ }
+
+
+/* Botões (gerais) */
+.btn {
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px; /* Borda mais arredondada */
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+    cursor: pointer;
+    display: inline-flex; /* Para alinhar ícone e texto */
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+}
+.btn-primary {
+    background-color: var(--accent-primary);
+    color: #fff;
+}
+.btn-primary:hover {
+    background-color: var(--accent-secondary);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Sombra ao passar o mouse */
+}
+.btn-secondary {
+    background-color: transparent;
+    border-color: var(--accent-primary);
+    color: var(--accent-primary);
+}
+.btn-secondary:hover {
+    background-color: var(--accent-primary);
+    color: #fff;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+.btn i {
+    margin-right: 0.6rem;
+    font-size: 1.1rem;
+}
+
+/* Estilo para botões menores (usado no loja.php, por exemplo) */
+.btn-sm {
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+}
+
+/* Utilitários */
+.mt-1 {
+    margin-top: 1rem;
+}
+
+/* Seção Herói */
+.hero-section {
+    text-align: center;
+    padding: 4rem 1rem;
+    background-color: var(--bg-secondary);
+    transition: background-color 0.3s ease;
+    border-radius: 8px;
+    margin-bottom: 2rem;
+}
+
+.hero-content h1 {
+    color: var(--text-primary);
+    font-size: 3rem;
+    font-weight: 700;
+    letter-spacing: -1px;
+    margin-bottom: 1rem;
+}
+
+.hero-content p {
+    font-size: 1.2rem;
+    max-width: 600px;
+    margin: 0 auto;
+    color: var(--text-secondary);
+}
+
+/* Grid e Cartões */
+.container-guias {
+    max-width: 1200px;
+    margin: 2rem auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Ajustado para melhor responsividade */
+    gap: 1.5rem;
+}
+
+.cartao {
+    background-color: var(--bg-primary);
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05); /* Sombra suave */
+}
+
+.cartao:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    border-color: var(--accent-primary);
+}
+
+/* --- Estilos para Fotos de Capa no Cartão de Loja (index.php) --- */
+.cartao-img-container {
+    width: 100%;
+    height: 180px; /* Altura fixa para todos os cartões */
+    overflow: hidden; /* Garante que a imagem recortada não transborde */
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--bg-secondary); /* Fundo para placeholders/margens */
+    border-bottom: 1px solid var(--border-color); /* Linha divisória */
+}
+
+.cartao-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Recorta a imagem para preencher o contêiner sem distorcer */
+    display: block;
+}
+
+/* Estilos para o placeholder (quando não há imagem) */
+.cartao-img-container.placeholder-img {
+    flex-direction: column;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    font-style: italic;
+}
+
+.cartao-img-container.placeholder-img i {
+    font-size: 3rem; /* Tamanho do ícone no placeholder */
+    margin-bottom: 0.5rem;
+    color: var(--border-color); /* Cor mais clara para o ícone */
+}
+
+
+.cartao-body {
+    padding: 1.5rem;
+    flex-grow: 1;
+}
+
+.cartao-categoria {
+    color: var(--accent-primary);
+    font-weight: 600;
+    font-size: 0.85rem;
+    margin-bottom: 0.75rem;
+    display: block;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+.cartao-categoria i {
+    margin-right: 0.4rem;
+    font-size: 0.9em;
+}
+
+.cartao-titulo {
+    color: var(--text-primary);
+    font-size: 1.6rem; /* Levemente maior */
+    margin-bottom: 0.8rem;
+    line-height: 1.3;
+}
+
+.cartao-descricao {
+    line-height: 1.6;
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+}
+
+.cartao-footer {
+    padding: 0 1.5rem 1.5rem;
+    margin-top: 1rem;
+}
+
+.btn-detalhes {
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+}
+.btn-detalhes:hover {
+    color: var(--accent-primary);
+}
+.btn-detalhes i {
+    margin-left: 0.5rem;
+    transition: transform 0.3s ease;
+}
+.btn-detalhes:hover i {
+    transform: translateX(5px);
+}
+
+.aviso-geral {
+    grid-column: 1 / -1; /* Ocupa todas as colunas no grid */
+    text-align: center;
+    padding: 2rem;
+    background-color: var(--bg-secondary);
+    border: 1px dashed var(--border-color);
+    border-radius: 8px;
+    color: var(--text-secondary);
+    font-style: italic;
+}
+
+
+/* --- Estilos para Formulários (cadastro.php, login.php, adicionar_loja.php, editar_loja.php, editar_perfil.php) --- */
+.form-container {
+    max-width: 500px;
+    margin: 3rem auto;
+    padding: 2.5rem;
+    background-color: var(--bg-primary);
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+    transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.form-container h2 {
+    color: var(--text-primary);
+    font-size: 2rem;
+    margin-bottom: 0.75rem;
+    text-align: center;
+}
+
+.form-container p {
+    color: var(--text-secondary);
+    text-align: center;
+    margin-bottom: 2rem;
+    font-size: 0.95rem;
+}
+
+.form-grupo {
+    margin-bottom: 1.5rem;
+}
+
+.form-grupo label {
+    display: block;
+    margin-bottom: 0.6rem;
+    color: var(--text-primary);
+    font-weight: 500;
+    font-size: 0.95rem;
+}
+
+.form-grupo input[type="text"],
+.form-grupo input[type="email"],
+.form-grupo input[type="password"] {
+    width: 100%;
+    padding: 0.8rem 1rem;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    background-color: var(--bg-secondary);
+    color: var(--text-primary);
+    font-size: 1rem;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.form-grupo input:focus {
+    border-color: var(--accent-primary);
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(var(--accent-primary-rgb), 0.25);
+}
+
+/* Estilo para Textarea */
+.form-grupo textarea {
+    width: 100%;
+    padding: 0.8rem 1rem;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    background-color: var(--bg-secondary);
+    color: var(--text-primary);
+    font-size: 1rem;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    resize: vertical; /* Permite redimensionar verticalmente */
+    min-height: 100px; /* Altura mínima para a textarea */
+}
+
+.form-grupo textarea:focus {
+    border-color: var(--accent-primary);
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(var(--accent-primary-rgb), 0.25);
+}
+
+/* Estilo para Select/Dropdown */
+.form-grupo select {
+    width: 100%;
+    padding: 0.8rem 1rem;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    background-color: var(--bg-secondary);
+    color: var(--text-primary);
+    font-size: 1rem;
+    height: 44px; /* Altura consistente com os inputs */
+    appearance: none; /* Remove a seta padrão do navegador */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    /* Seta customizada para tema claro */
+    background-image: url('data:image/svg+xml;utf8,<svg fill="%234a5568" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>');
+    background-repeat: no-repeat;
+    background-position: right 1rem center;
+    background-size: 1em;
+    cursor: pointer;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* Seta customizada para tema escuro */
+[data-theme='dark'] .form-grupo select {
+    background-image: url('data:image/svg+xml;utf8,<svg fill="%23a0aec0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>');
+}
+
+.form-grupo select:focus {
+    border-color: var(--accent-primary);
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(var(--accent-primary-rgb), 0.25);
+}
+
+/* Estilo para input type="file" */
+.form-grupo input[type="file"] {
+    padding: 0.8rem 0; /* Menos padding lateral para files */
+    border: 1px dashed var(--border-color); /* Borda tracejada */
+    border-radius: 6px;
+    background-color: var(--bg-secondary);
+    color: var(--text-primary);
+    font-size: 1rem;
+    cursor: pointer;
+    text-align: center; /* Centraliza o texto do input file */
+    display: block; /* Ocupa a largura total */
+    width: 100%;
+}
+.form-grupo input[type="file"]::file-selector-button {
+    background-color: var(--accent-primary);
+    color: #fff;
+    padding: 0.8rem 1rem;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    margin-right: 1rem;
+}
+.form-grupo input[type="file"]::file-selector-button:hover {
+    background-color: var(--accent-secondary);
+}
+
+.form-text-muted {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    margin-top: 0.25rem;
+    display: block;
+}
+
+/* Estilo para preview de imagem em formulários */
+.current-cover-photo {
+    margin-bottom: 1rem;
+    text-align: center;
+}
+.current-cover-photo img.img-preview {
+    max-width: 200px;
+    height: auto;
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+    margin-bottom: 0.5rem;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+.current-cover-photo label {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+}
+.current-cover-photo input[type="checkbox"] {
+    margin-right: 0.5rem;
+}
+
+/* Linha divisória em formulários */
+.form-divider {
+    border: 0;
+    height: 1px;
+    background-color: var(--border-color);
+    margin: 2rem 0;
+}
+
+
+/* Botões específicos de formulário */
+.btn-cadastro-form,
+.btn-login-form {
+    width: 100%;
+    padding: 0.9rem 1.5rem;
+    font-size: 1.1rem;
+    margin-top: 1.5rem;
+    background-color: var(--accent-primary);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.btn-cadastro-form:hover,
+.btn-login-form:hover {
+    background-color: var(--accent-secondary);
+    transform: translateY(-2px);
+}
+
+/* Ajuste para o botão principal de formulários de adição/edição */
+.form-container .btn.btn-primary {
+    margin-top: 2rem; /* Mais espaço acima do botão principal */
+    width: 100%;
+}
+
+.form-link {
+    text-align: center;
+    margin-top: 1.5rem;
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+}
+
+.form-link a {
+    color: var(--accent-primary);
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.form-link a:hover {
+    text-decoration: underline;
+}
+
+/* Mensagens de feedback (sucesso/erro/aviso) */
+.mensagem {
+    padding: 1rem 1.5rem;
+    margin-bottom: 1.5rem;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    line-height: 1.4;
+    border: 1px solid transparent;
+}
+
+.mensagem p {
+    margin: 0;
+    text-align: left; /* Garante que o texto fique alinhado à esquerda dentro da mensagem */
+}
+
+.mensagem.erro {
+    background-color: rgba(var(--error-color-rgb), 0.1);
+    color: var(--error-color);
+    border-color: var(--error-color);
+}
+
+.mensagem.sucesso {
+    background-color: rgba(var(--success-color-rgb), 0.1);
+    color: var(--success-color);
+    border-color: var(--success-color);
+}
+
+.mensagem.aviso { /* Nova classe para mensagens de aviso */
+    background-color: rgba(255, 193, 7, 0.1); /* Amarelo claro */
+    color: #ffc107; /* Amarelo */
+    border-color: #ffc107;
+}
+
+/* --- Estilos para Página de Loja (loja.php) --- */
+.loja-container {
+    max-width: 800px;
+    margin: 3rem auto;
+    padding: 2.5rem;
+    background-color: var(--bg-primary);
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.loja-header {
+    text-align: center;
+    margin-bottom: 2rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.loja-header h1 {
+    color: var(--text-primary);
+    font-size: 2.8rem;
+    margin-bottom: 0.5rem;
+}
+
+.loja-header .categoria {
+    color: var(--accent-primary);
+    font-weight: 600;
+    font-size: 1.1rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Estilo para o botão de edição no cabeçalho da página de loja */
+.loja-actions-header {
+    margin-top: 1.5rem; /* Espaçamento abaixo do título/categoria */
+    text-align: center; /* Centraliza o botão */
+}
+
+/* --- Estilos para a Imagem de Capa da LOJA (loja.php) --- */
+.loja-capa-section {
+    margin-bottom: 2rem; /* Espaçamento abaixo da imagem */
+    padding-bottom: 0; /* Remove padding-bottom padrão da section para imagens */
+    border-bottom: none; /* Remove borda inferior padrão da section para imagens */
+    text-align: center; /* Centraliza a imagem */
+}
+
+.loja-capa-img {
+    max-width: 100%; /* Garante que a imagem não transborde o contêiner */
+    height: 300px; /* Altura fixa para consistência */
+    object-fit: cover; /* Recorta a imagem para preencher a área sem distorcer */
+    border-radius: 8px; /* Bordas arredondadas */
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1); /* Sombra suave */
+}
+
+
+.loja-section {
+    margin-bottom: 2rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.loja-section:last-child {
+    border-bottom: none; /* Remove a borda do último elemento */
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+.loja-section h2 {
+    color: var(--text-primary);
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+    position: relative;
+    padding-left: 1.5rem; /* Espaço para o "ícone" ou linha decorativa */
+}
+
+.loja-section h2::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 6px;
+    height: 100%;
+    background-color: var(--accent-primary);
+    border-radius: 3px;
+}
+
+
+.loja-section p {
+    line-height: 1.7;
+    font-size: 1rem;
+    color: var(--text-secondary);
+}
+
+.contatos-lista {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.contatos-lista li {
+    background-color: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    padding: 0.8rem 1.2rem;
+    margin-bottom: 0.8rem;
+    border-radius: 8px;
+    display: flex;
+    align-items: center; /* Alinha verticalmente */
+    font-size: 0.95rem;
+    flex-wrap: wrap; /* Permite quebra de linha em telas pequenas */
+    gap: 0.5rem; /* Espaçamento entre os itens */
+}
+
+.contatos-lista li:last-child {
+    margin-bottom: 0;
+}
+
+.contatos-lista li i { /* Ícones dentro da lista de contatos */
+    font-size: 1.1em;
+    color: var(--accent-primary);
+    margin-right: 0.5rem;
+    width: 20px; /* Largura fixa para alinhar */
+    text-align: center;
+}
+
+.contatos-lista li strong {
+    color: var(--text-primary);
+    margin-right: 0.5rem;
+}
+
+.contatos-lista li .contact-link {
+    color: var(--accent-primary); /* Cor do link */
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.2s ease;
+    display: inline-flex; /* Para alinhar o ícone de link externo */
+    align-items: center;
+}
+
+.contatos-lista li .contact-link:hover {
+    text-decoration: underline;
+}
+
+.contatos-lista li .contact-link .fa-xs { /* Ícone de link externo */
+    font-size: 0.7em;
+    margin-left: 0.5rem;
+    color: var(--text-secondary); /* Cor mais discreta para o ícone de link externo */
+}
+
+/* Avaliações */
+.avaliacao-item {
+    background-color: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    padding: 1.2rem;
+    margin-bottom: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+.avaliacao-item:last-child {
+    margin-bottom: 0;
+}
+
+.avaliacao-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.8rem;
+    font-size: 0.95rem;
+}
+
+.avaliacao-header .nome {
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.avaliacao-header .nota {
+    color: var(--accent-primary);
+    font-weight: 700;
+}
+/* Estilo para a estrela */
+.avaliacao-header .nota::before {
+    content: '\2605'; /* Caractere de estrela unicode */
+    margin-right: 0.3em;
+    color: gold; /* Cor da estrela */
+}
+
+
+.avaliacao-item p {
+    font-style: italic;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    line-height: 1.6;
+    margin-bottom: 0;
+}
+
+/* --- Estilos para o Dashboard (dashboard.php) --- */
+.dashboard-container {
+    max-width: 960px; /* Largura um pouco maior para o dashboard */
+    margin: 3rem auto;
+    padding: 2.5rem;
+    background-color: var(--bg-primary);
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+    transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.dashboard-container h2 {
+    color: var(--text-primary);
+    font-size: 2.2rem;
+    margin-bottom: 0.75rem;
+    text-align: center;
+}
+
+.dashboard-container p {
+    color: var(--text-secondary);
+    text-align: center;
+    margin-bottom: 2rem;
+    font-size: 1rem;
+}
+
+.dashboard-container h3 {
+    color: var(--text-primary);
+    font-size: 1.7rem;
+    margin-top: 2.5rem;
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.dashboard-actions {
+    display: flex;
+    justify-content: center; /* Centraliza os botões */
+    gap: 1.5rem; /* Espaço entre os botões */
+    margin-bottom: 2rem;
+    flex-wrap: wrap; /* Permite quebrar linha em telas pequenas */
+}
+
+/* Listagem das Lojas */
+.lojas-listagem {
+    display: flex;
+    flex-direction: column; /* Itens um abaixo do outro */
+    gap: 1rem; /* Espaçamento entre os itens da loja */
+}
+
+.loja-item {
+    background-color: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 1.2rem 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap; /* Permite quebra de linha em telas pequenas */
+    gap: 1rem; /* Espaçamento interno */
+    transition: all 0.2s ease;
+}
+
+.loja-item:hover {
+    box-shadow: 0 4px 10px rgba(0,0,0,0.07);
+    border-color: var(--accent-primary);
+}
+
+.loja-info {
+    flex-grow: 1; /* Permite que as informações ocupem o espaço disponível */
+}
+
+.loja-info h4 {
+    color: var(--text-primary);
+    font-size: 1.3rem;
+    margin-bottom: 0.4rem;
+}
+
+.loja-info p {
+    text-align: left; /* Garante que os parágrafos de info da loja fiquem à esquerda */
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    margin-bottom: 0.2rem;
+}
+
+.loja-info p:last-child {
+    margin-bottom: 0;
+}
+
+.loja-info p span {
+    font-weight: 500; /* Deixa o valor da categoria/status mais destacado */
+    color: var(--text-primary);
+}
+
+/* Estilos para Status de Publicação */
+.status-publicado {
+    color: var(--success-color);
+    font-weight: 600;
+}
+
+.status-pendente {
+    color: orange; /* Usar uma cor para pendente */
+    font-weight: 600;
+}
+
+.status-rascunho {
+    color: #6c757d; /* Cinza */
+    font-weight: 600;
+}
+
+.status-revisao {
+    color: #007bff; /* Azul um pouco diferente para revisão */
+    font-weight: 600;
+}
+
+.status-arquivado,
+.status-inativo {
+    color: var(--text-secondary); /* Cinza para arquivado/inativo */
+    font-weight: 600;
+}
+
+/* Ações dos Botões */
+.loja-acoes {
+    display: flex;
+    gap: 0.5rem; /* Espaçamento entre os botões de ação */
+    flex-shrink: 0; /* Impede que os botões encolham */
+}
+
+.btn-acao {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.6rem; /* Padding igual em todos os lados para fazer quadrado/círculo */
+    border-radius: 6px;
+    text-decoration: none;
+    color: #fff; /* Cor do ícone */
+    font-size: 1.1rem;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.btn-acao:hover {
+    transform: translateY(-2px);
+}
+
+/* Cores específicas para os botões de ação */
+.btn-acao.editar {
+    background-color: #ffc107; /* Amarelo/Laranja para editar */
+}
+.btn-acao.editar:hover {
+    background-color: #e0a800;
+}
+
+.btn-acao.visualizar {
+    background-color: var(--accent-primary); /* Azul padrão para visualizar */
+}
+.btn-acao.visualizar:hover {
+    background-color: var(--accent-secondary);
+}
+
+.btn-acao.contatos {
+    background-color: #28a745; /* Verde para contatos */
+}
+.btn-acao.contatos:hover {
+    background-color: #218838;
+}
+
+.btn-acao.avaliacoes {
+    background-color: #6f42c1; /* Roxo para avaliações */
+}
+.btn-acao.avaliacoes:hover {
+    background-color: #5a2eac;
+}
+
+.btn-acao.deletar {
+    background-color: var(--error-color); /* Vermelho para deletar */
+}
+.btn-acao.deletar:hover {
+    background-color: #c82333;
+}
+
+
+/* --- Estilos para Gerenciar Avaliações (gerenciar_avaliacoes.php) --- */
+
+.avaliacoes-listagem {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-top: 1.5rem;
+}
+
+.avaliacao-gerenciar-item {
+    background-color: var(--bg-primary);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 1.5rem;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    transition: all 0.2s ease;
+}
+
+.avaliacao-gerenciar-item:hover {
+    border-color: var(--accent-primary);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+}
+
+.avaliacao-header-gerenciar {
+    display: flex;
+    flex-wrap: wrap; /* Para responsividade */
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    padding-bottom: 0.8rem;
+    border-bottom: 1px dashed var(--border-color); /* Linha divisória */
+    font-size: 0.95rem;
+}
+
+.avaliacao-header-gerenciar .nome {
+    font-weight: 600;
+    color: var(--text-primary);
+    flex-basis: 100%; /* Ocupa a largura total em telas pequenas */
+    margin-bottom: 0.5rem; /* Espaçamento abaixo do nome em telas pequenas */
+}
+/* No desktop, o nome pode ocupar menos */
+@media (min-width: 769px) {
+    .avaliacao-header-gerenciar .nome {
+        flex-basis: auto;
+        margin-bottom: 0;
+    }
+}
+
+.avaliacao-header-gerenciar .nota {
+    color: var(--accent-primary);
+    font-weight: 700;
+    margin-right: 1rem;
+}
+.avaliacao-header-gerenciar .nota::before {
+    content: '\2605'; /* Caractere de estrela unicode */
+    margin-right: 0.3em;
+    color: gold; /* Cor da estrela */
+}
+
+.avaliacao-header-gerenciar .data {
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+    margin-right: 1rem;
+}
+
+/* Estilos para o Status da Avaliação */
+.avaliacao-header-gerenciar .status {
+    font-weight: 600;
+    padding: 0.3rem 0.6rem;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.avaliacao-header-gerenciar .status.status-aprovada {
+    background-color: rgba(var(--success-color-rgb), 0.1);
+    color: var(--success-color);
+}
+
+.avaliacao-header-gerenciar .status.status-pendente {
+    background-color: rgba(255, 193, 7, 0.1); /* Amarelo claro */
+    color: #ffc107; /* Amarelo */
+}
+
+.avaliacao-header-gerenciar .status.status-rejeitada {
+    background-color: rgba(var(--error-color-rgb), 0.1);
+    color: var(--error-color);
+}
+
+.avaliacao-gerenciar-item .comentario {
+    font-style: italic;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+    font-size: 0.9rem;
+}
+
+.avaliacao-acoes {
+    display: flex;
+    gap: 0.8rem;
+    justify-content: flex-end; /* Alinha os botões à direita */
+    border-top: 1px dashed var(--border-color);
+    padding-top: 1rem;
+}
+
+/* Cores específicas para os botões de Aprovar/Rejeitar */
+.btn-success {
+    background-color: var(--success-color);
+    color: #fff;
+    border: none;
+}
+.btn-success:hover {
+    background-color: #218838; /* Verde mais escuro */
+}
+
+.btn-danger {
+    background-color: var(--error-color);
+    color: #fff;
+    border: none;
+}
+.btn-danger:hover {
+    background-color: #c82333; /* Vermelho mais escuro */
+}
+
+
+/* --- Estilos para Gerenciar Contatos (gerenciar_contatos.php) --- */
+
+/* Ajuste para o formulário de contato (para ser um pouco menor) */
+.form-contato-pequeno {
+    max-width: 600px; /* Largura um pouco menor para o formulário de contato */
+}
+
+.contatos-listagem {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-top: 1.5rem;
+}
+
+.contato-item {
+    background-color: var(--bg-primary);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 1.2rem 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    transition: all 0.2s ease;
+}
+
+.contato-item:hover {
+    border-color: var(--accent-primary);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+}
+
+.contato-info {
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+    font-size: 1rem;
+    color: var(--text-primary);
+}
+
+.contato-info i {
+    font-size: 1.2em;
+    color: var(--accent-primary);
+    margin-right: 0.8rem;
+    width: 20px; /* Largura fixa para alinhar ícones */
+    text-align: center;
+}
+
+.contato-info strong {
+    margin-right: 0.5rem;
+    color: var(--text-primary);
+}
+
+.contato-info span {
+    color: var(--text-secondary);
+    word-break: break-word; /* Quebra palavras longas */
+}
+
+.contato-acoes {
+    display: flex;
+    gap: 0.5rem;
+    flex-shrink: 0;
+}
+
+/* Reutiliza .btn-acao.editar e .btn-acao.deletar do dashboard.css */
+
+/* Rodapé */
+footer {
+    text-align: center;
+    padding: 2rem;
+    margin-top: 4rem; /* Mais espaço antes do rodapé */
+    background-color: var(--bg-secondary);
+    border-top: 1px solid var(--border-color);
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+
+/* --- Responsividade Geral --- */
+@media (max-width: 768px) {
+    .navbar-container {
+        flex-direction: column;
+        gap: 1rem;
+    }
+    .navbar-menu {
+        flex-direction: column;
+        width: 100%;
+    }
+    .navbar-menu a {
+        width: 100%;
+        text-align: center;
+    }
+
+    .hero-content h1 {
+        font-size: 2.5rem;
+    }
+    .hero-content p {
+        font-size: 1rem;
+    }
+
+    .form-container, .loja-container, .dashboard-container {
+        margin: 2rem 1rem;
+        padding: 1.5rem;
+    }
+
+    .form-container h2 {
+        font-size: 1.8rem;
+    }
+
+    .loja-header h1 {
+        font-size: 2rem;
+    }
+    .loja-actions-header { /* Ajuste para o botão editar na loja */
+        margin-top: 1rem;
+    }
+    /* Ajuste responsivo para a imagem de capa da loja */
+    .loja-capa-img {
+        height: 200px; /* Reduz a altura em telas menores */
+    }
+
+
+    .loja-section h2 {
+        font-size: 1.5rem;
+    }
+
+    .dashboard-container h2 {
+        font-size: 1.8rem;
+    }
+
+    .dashboard-container h3 {
+        font-size: 1.4rem;
+        text-align: center;
+    }
+
+    .dashboard-actions {
+        flex-direction: column; /* Botões empilhados */
+        gap: 0.8rem;
+    }
+    .dashboard-actions .btn {
+        width: 100%; /* Botões ocupam a largura total */
+    }
+
+    .loja-item {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .loja-info {
+        width: 100%;
+        margin-bottom: 1rem;
+    }
+
+    .loja-acoes {
+        width: 100%;
+        justify-content: flex-start;
+    }
+
+    /* Avaliações - Gerenciamento */
+    .avaliacao-header-gerenciar {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .avaliacao-header-gerenciar .nota,
+    .avaliacao-header-gerenciar .data,
+    .avaliacao-header-gerenciar .status {
+        margin-right: 0;
+        margin-top: 0.5rem;
+        width: 100%;
+        text-align: left;
+    }
+    .avaliacao-acoes {
+        justify-content: flex-start;
+        flex-wrap: wrap;
+    }
+    .avaliacao-acoes form {
+        width: 100%;
+    }
+    .avaliacao-acoes button {
+        width: 100%;
+    }
+
+    /* Contatos - Gerenciamento */
+    .contato-item {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .contato-info {
+        width: 100%;
+        margin-bottom: 1rem;
+    }
+    .contato-acoes {
+        width: 100%;
+        justify-content: flex-start;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero-content h1 {
+        font-size: 2rem;
+    }
+    .hero-content p {
+        font-size: 0.9rem;
+    }
+
+    .cartao-titulo {
+        font-size: 1.3rem;
+    }
+    .cartao-descricao {
+        font-size: 0.85rem;
+    }
+
+    .form-container {
+        padding: 1rem;
+    }
+    .form-container h2 {
+        font-size: 1.5rem;
+    }
+
+    .loja-info h4 {
+        font-size: 1.1rem;
+    }
+
+    .loja-info p {
+        font-size: 0.8rem;
+    }
+
+    .btn-acao {
+        padding: 0.5rem;
+        font-size: 1rem;
+    }
+}
+/* --- Estilos para a Seção de Pesquisa (index.php) --- */
+.search-section {
+    padding: 1.5rem 1rem;
+    background-color: var(--bg-secondary);
+    border-radius: 8px;
+    margin-bottom: 2rem;
+    text-align: center; /* Centraliza o contêiner de input */
+}
+
+.search-input-container {
+    position: relative;
+    max-width: 600px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    background-color: var(--bg-primary);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    transition: all 0.2s ease;
+}
+
+.search-input-container:focus-within {
+    border-color: var(--accent-primary);
+    box-shadow: 0 0 0 3px rgba(var(--accent-primary-rgb), 0.2);
+}
+
+.search-icon {
+    position: absolute;
+    left: 1rem;
+    color: var(--text-secondary);
+    font-size: 1.1rem;
+}
+
+.search-input {
+    width: 100%;
+    padding: 1rem 3rem 1rem 3rem; /* Aumenta padding para ícones */
+    border: none;
+    background-color: transparent;
+    color: var(--text-primary);
+    font-size: 1rem;
+    outline: none;
+}
+
+.search-input::placeholder {
+    color: var(--text-secondary);
+    opacity: 0.7;
+}
+
+.clear-search-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--text-secondary);
+    font-size: 1.1rem;
+    padding: 0.5rem;
+    border-radius: 50%;
+    transition: color 0.2s ease, background-color 0.2s ease;
+    margin-right: 0.5rem; /* Ajusta a posição */
+}
+
+.clear-search-btn:hover {
+    color: var(--error-color);
+    background-color: var(--bg-secondary);
+}
+
+/* Reajuste de media queries para a seção de busca */
+@media (max-width: 768px) {
+    .search-input {
+        padding: 0.8rem 2.5rem 0.8rem 2.5rem;
+    }
+    .search-icon {
+        left: 0.8rem;
+        font-size: 1rem;
+    }
+    .clear-search-btn {
+        font-size: 1rem;
+        margin-right: 0.3rem;
+    }
+}
+
+/* --- Estilos para a Seção de Pesquisa (index.php) --- */
+.search-section {
+    padding: 1.5rem 1rem;
+    background-color: var(--bg-secondary);
+    border-radius: 8px;
+    margin-bottom: 2rem;
+    text-align: center; /* Centraliza o contêiner de input */
+}
+
+.search-input-container {
+    position: relative;
+    max-width: 600px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    background-color: var(--bg-primary);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    transition: all 0.2s ease;
+}
+
+.search-input-container:focus-within {
+    border-color: var(--accent-primary);
+    box-shadow: 0 0 0 3px rgba(var(--accent-primary-rgb), 0.2);
+}
+
+.search-icon {
+    position: absolute;
+    left: 1rem;
+    color: var(--text-secondary);
+    font-size: 1.1rem;
+}
+
+.search-input {
+    width: 100%;
+    padding: 1rem 3rem 1rem 3rem; /* Aumenta padding para ícones */
+    border: none;
+    background-color: transparent;
+    color: var(--text-primary);
+    font-size: 1rem;
+    outline: none;
+}
+
+.search-input::placeholder {
+    color: var(--text-secondary);
+    opacity: 0.7;
+}
+
+.clear-search-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--text-secondary);
+    font-size: 1.1rem;
+    padding: 0.5rem;
+    border-radius: 50%;
+    transition: color 0.2s ease, background-color 0.2s ease;
+    margin-right: 0.5rem; /* Ajusta a posição */
+}
+
+.clear-search-btn:hover {
+    color: var(--error-color);
+    background-color: var(--bg-secondary);
+}
+
+/* Reajuste de media queries para a seção de busca */
+@media (max-width: 768px) {
+    .search-input {
+        padding: 0.8rem 2.5rem 0.8rem 2.5rem;
+    }
+    .search-icon {
+        left: 0.8rem;
+        font-size: 1rem;
+    }
+    .clear-search-btn {
+        font-size: 1rem;
+        margin-right: 0.3rem;
+    }
+}
+/* --- Estilos para Google Maps Incorporado (loja.php) --- */
+
+.google-maps-container {
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border-color);
+}
+
+.google-maps-container h3 {
+    color: var(--text-primary);
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    text-align: center; /* Centraliza o título do mapa */
+}
+
+.google-maps-iframe {
+    width: 100%;
+    height: 400px; /* Altura padrão para o mapa */
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    background-color: var(--bg-secondary); /* Fundo enquanto carrega */
+}
+
+/* Ajustes de responsividade para o mapa */
+@media (max-width: 768px) {
+    .google-maps-iframe {
+        height: 300px; /* Reduz a altura do mapa em telas menores */
+    }
+}
+
+@media (max-width: 480px) {
+    .google-maps-iframe {
+        height: 250px; /* Mais redução em telas muito pequenas */
+    }
+}
+/* --- Estilos para o Painel Administrativo (admin_dashboard.php) --- */
+
+.summary-cards-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2.5rem;
+}
+
+.summary-card {
+    background-color: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 1.5rem;
+    text-align: center;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    transition: all 0.2s ease;
+}
+
+.summary-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    border-color: var(--accent-primary);
+}
+
+.summary-card h4 {
+    color: var(--text-primary);
+    font-size: 1.2rem;
+    margin-bottom: 0.8rem;
+}
+
+.summary-card .count {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--accent-primary);
+    margin-bottom: 1rem;
+}
+
+.summary-card .btn {
+    width: 100%; /* Botões dentro do card ocupam a largura total */
+}
+
+.admin-actions-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 1rem;
+    margin-top: 1.5rem;
+}
+
+.admin-action-item {
+    background-color: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 1.5rem 1rem;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    color: var(--text-primary);
+    font-weight: 500;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    transition: all 0.2s ease;
+}
+
+.admin-action-item:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    border-color: var(--accent-primary);
+    color: var(--accent-primary);
+}
+
+.admin-action-item i {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    color: var(--accent-primary);
+    transition: color 0.2s ease;
+}
+
+.admin-action-item:hover i {
+    color: var(--accent-secondary);
+}
+
+.admin-action-item span {
+    font-size: 0.95rem;
+}
+
+/* Responsividade para o painel admin */
+@media (max-width: 768px) {
+    .summary-cards-container {
+        grid-template-columns: 1fr; /* Um card por linha em mobile */
+    }
+    .admin-actions-grid {
+        grid-template-columns: 1fr 1fr; /* Dois itens por linha em mobile (ou 1fr se ficarem apertados) */
+    }
+}
+@media (max-width: 480px) {
+    .admin-actions-grid {
+        grid-template-columns: 1fr; /* Um item por linha em telas muito pequenas */
+    }
+}
+
+/* --- Estilos para Gerenciar Lojas (admin_gerenciar_lojas.php) --- */
+
+.tabela-responsiva {
+    overflow-x: auto; /* Permite scroll horizontal em telas pequenas */
+    margin-top: 1.5rem;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+}
+
+.tabela-admin {
+    width: 100%;
+    border-collapse: collapse; /* Remove espaçamento entre bordas de células */
+    min-width: 800px; /* Garante que a tabela tenha uma largura mínima para scroll */
+}
+
+.tabela-admin th,
+.tabela-admin td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.tabela-admin th {
+    background-color: var(--bg-secondary);
+    color: var(--text-primary);
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+}
+
+.tabela-admin tbody tr:last-child td {
+    border-bottom: none; /* Remove a borda da última linha */
+}
+
+.tabela-admin tbody tr:hover {
+    background-color: var(--bg-secondary);
+}
+
+/* Estilos específicos para a coluna de ações */
+.admin-acoes-coluna {
+    white-space: nowrap; /* Impede que os botões de ação quebrem linha */
+    display: flex;
+    flex-wrap: wrap; /* Permite que os botões se ajustem se a tela for muito pequena */
+    gap: 5px; /* Espaço entre os botões */
+    align-items: center;
+    justify-content: flex-start; /* Alinha à esquerda na coluna */
+}
+
+.admin-acoes-coluna form {
+    margin: 0;
+    padding: 0;
+}
+
+/* Estilos para os botões de status na tabela */
+.tabela-admin .btn-success { background-color: var(--success-color); }
+.tabela-admin .btn-success:hover { background-color: #218838; }
+.tabela-admin .btn-warning { background-color: orange; }
+.tabela-admin .btn-warning:hover { background-color: darkorange; }
+.tabela-admin .btn-info { background-color: #17a2b8; } /* Azul ciano para revisão */
+.tabela-admin .btn-info:hover { background-color: #138496; }
+.tabela-admin .btn-secondary { background-color: #6c757d; } /* Cinza para arquivar */
+.tabela-admin .btn-secondary:hover { background-color: #5a6268; }
+.tabela-admin .btn-danger { background-color: var(--error-color); }
+.tabela-admin .btn-danger:hover { background-color: #c82333; }
+
+
+/* Estilos para o status da loja na tabela */
+.tabela-admin .status {
+    font-weight: 600;
+    padding: 0.3rem 0.6rem;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.tabela-admin .status.status-publicado {
+    background-color: rgba(var(--success-color-rgb), 0.1);
+    color: var(--success-color);
+}
+
+.tabela-admin .status.status-pendente {
+    background-color: rgba(255, 193, 7, 0.1);
+    color: #ffc107;
+}
+
+.tabela-admin .status.status-revisao {
+    background-color: rgba(0, 123, 255, 0.1);
+    color: #007bff;
+}
+
+.tabela-admin .status.status-rascunho {
+    background-color: rgba(108, 117, 125, 0.1);
+    color: #6c757d;
+}
+
+.tabela-admin .status.status-arquivado {
+    background-color: rgba(108, 117, 125, 0.1);
+    color: var(--text-secondary);
+}
+/* --- Estilos para Gerenciar Avaliações (admin_gerenciar_avaliacoes.php) --- */
+
+/* Estilo para a nota na tabela */
+.tabela-admin .nota-tabela {
+    white-space: nowrap; /* Impede que quebre linha */
+    font-weight: 700;
+    color: var(--accent-primary);
+}
+.tabela-admin .nota-tabela .fa-star { /* Ícone de estrela */
+    color: gold;
+    margin-left: 0.3em;
+}
+
+/* Estilos para o Status da Avaliação (já definidos, mas para referência) */
+/* .tabela-admin .status.status-aprovada {
+    background-color: rgba(var(--success-color-rgb), 0.1);
+    color: var(--success-color);
+}
+
+.tabela-admin .status.status-pendente {
+    background-color: rgba(255, 193, 7, 0.1);
+    color: #ffc107;
+}
+
+.tabela-admin .status.status-rejeitada {
+    background-color: rgba(var(--error-color-rgb), 0.1);
+    color: var(--error-color);
+} */
+
+/* Opcional: Estilo para o botão btn-dark, se usado para remoção */
+/* .btn-dark {
+    background-color: #343a40;
+    color: #fff;
+}
+.btn-dark:hover {
+    background-color: #23272b;
+} */
+ /* --- Estilos para o Filtro de Categorias (index.php) --- */
+
+.categories-filter-section {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 1.5rem 1rem;
+    background-color: var(--bg-secondary);
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    text-align: center;
+}
+
+.categories-filter-section h3 {
+    color: var(--text-primary);
+    font-size: 1.4rem;
+    margin-bottom: 1.5rem;
+}
+
+.categories-list-container {
+    display: flex;
+    flex-wrap: wrap; /* Permite que os botões quebrem linha */
+    justify-content: center; /* Centraliza os botões */
+    gap: 0.75rem; /* Espaçamento entre os botões */
+    max-height: 250px; /* Limita a altura do container */
+    overflow-y: auto; /* Adiciona scroll se houver muitas categorias */
+    padding-right: 5px; /* Espaço para o scrollbar */
+}
+
+.category-btn {
+    background-color: var(--bg-primary);
+    border: 1px solid var(--border-color);
+    border-radius: 20px; /* Bordas arredondadas para parecer "pill" */
+    padding: 0.6rem 1.2rem;
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    white-space: nowrap; /* Evita que o texto quebre dentro do botão */
+}
+
+.category-btn:hover {
+    background-color: var(--accent-primary);
+    color: #fff;
+    border-color: var(--accent-primary);
+    transform: translateY(-2px);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.category-btn.active {
+    background-color: var(--accent-primary);
+    color: #fff;
+    border-color: var(--accent-primary);
+    font-weight: 600;
+}
+
+/* Estilo para a contagem */
+.category-count {
+    background-color: rgba(0,0,0,0.1); /* Um fundo sutil para o número */
+    color: inherit; /* Herda a cor do texto do botão */
+    padding: 0.2rem 0.6rem;
+    border-radius: 10px;
+    font-size: 0.8rem;
+}
+
+.category-btn:hover .category-count,
+.category-btn.active .category-count {
+    background-color: rgba(255,255,255,0.2); /* Fundo da contagem quando ativo/hover */
+}
+
+/* Responsividade para a seção de filtro */
+@media (max-width: 768px) {
+    .categories-filter-section h3 {
+        font-size: 1.2rem;
+    }
+    .categories-list-container {
+        max-height: 200px; /* Ajusta altura em mobile */
+        gap: 0.5rem;
+    }
+    .category-btn {
+        padding: 0.5rem 1rem;
+        font-size: 0.85rem;
+    }
+}
