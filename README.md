@@ -1,80 +1,84 @@
-# Guia de Bairro — Guia Local de Serviços e Estabelecimentos
+# Guia de Bairro
 
-<p align="left">
-  <img src="https://img.shields.io/badge/versão-v1.0-blue.svg" alt="Versão" />
-  <img src="https://img.shields.io/badge/licença-GPL--3.0-blue.svg" alt="Licença" />
-  <img src="https://img.shields.io/badge/PHP-7.4%2B-cyan.svg" alt="PHP Version" />
-  <img src="https://img.shields.io/badge/plataformas-Linux | macOS | Windows-blue.svg" alt="Plataformas Suportadas" />
-</p>
+**Guia de Bairro** é uma plataforma web desenvolvida em PHP para conectar moradores, visitantes e comerciantes a serviços, estabelecimentos e pontos de interesse de uma região.
 
-## 1. Introdução
+---
 
-**guiadobairro** é uma plataforma web desenvolvida em PHP para conectar moradores e visitantes a serviços, estabelecimentos e pontos de interesse do bairro. O sistema foi projetado para ser simples, leve e adaptável, facilitando a busca por categorias, localização e destaque de comércios locais.
+## Funcionalidades
 
-## 2. Funcionalidades Principais
+- **Busca e listagem de estabelecimentos:** Consulte restaurantes, lojas, farmácias e outros pontos de interesse por nome, categoria ou localização.
+- **Cadastro e edição de locais:** Usuários autorizados podem cadastrar e editar estabelecimentos, incluindo endereço, horários e informações de contato.
+- **Categorias e filtros:** Navegação facilitada por categorias e filtros personalizados.
+- **Página detalhada do estabelecimento:** Cada local possui página própria com endereço, mapa, telefone, fotos e avaliações.
+- **Painel administrativo:** Gerenciamento completo de cadastros, aprovações e categorias por meio de um painel web.
+- **Sistema de avaliações:** Usuários podem avaliar estabelecimentos, e as avaliações passam por moderação.
+- **Design responsivo:** Interface adaptada para dispositivos móveis e computadores.
 
-- **Listagem e busca de estabelecimentos:** Consulte restaurantes, lojas, farmácias e outros pontos de interesse por nome, categoria ou localização.
-- **Cadastro e edição de locais:** Usuários autorizados podem cadastrar novos pontos, editar descrições, horários e informações de contato.
-- **Categorias e filtros:** Navegação facilitada por categorias e filtros rápidos.
-- **Detalhes completos:** Cada local possui página própria com mapa, horários, endereço, telefone e fotos.
-- **Painel administrativo:** Gerenciamento simples de cadastros, aprovações e categorias.
-- **Responsividade:** Interface adaptada para uso em dispositivos móveis e computadores.
+---
 
-## 3. Instalação e Execução
+## Implantação em Produção
 
-### 3.1. Pré-requisitos
+### Pré-requisitos
 
-- PHP 7.4 ou superior
-- Servidor web Apache/Nginx
-- MySQL/MariaDB (opcional, dependendo da configuração)
-- Composer (para dependências, se aplicável)
+- **Hospedagem com suporte a PHP 7.4+** (ex: HostGator, UOLHost, KingHost, DigitalOcean, VPS, etc)
+- **Banco de dados MySQL ou MariaDB**
+- **Acesso FTP, SSH ou painel de controle para upload dos arquivos**
+- **Composer** (caso utilize dependências PHP externas)
 
-### 3.2. Instalação
+### Passos de Implantação
 
-Clone o repositório:
+1. **Faça upload dos arquivos do repositório para o diretório público da sua hospedagem**  
+   (normalmente chamado de `public_html`, `www` ou similar).
 
-```bash
-git clone https://github.com/henriquetourinho/guiadobairro.git
-cd guiadobairro
-```
+2. **Instale as dependências** (se houver, via SSH):
+    ```bash
+    composer install
+    ```
 
-Instale as dependências (se houver):
+3. **Configure o banco de dados:**
+    - Crie um banco de dados MySQL/MariaDB pelo painel da hospedagem.
+    - Importe o script de estrutura disponível em `/database/` via phpMyAdmin ou linha de comando.
+    - Configure as credenciais de conexão no arquivo `config/config.php` ou `.env`.
 
-```bash
-composer install
-```
+4. **Aponte o domínio ou subdomínio para a pasta `public/` do projeto.**
+    - Certifique-se de definir o diretório raiz do site para a pasta `public/`.
+    - Configure o `.htaccess` para redirecionamento de URLs amigáveis, se necessário.
 
-Configure o banco de dados no arquivo `config.php` ou `.env` (detalhes no próprio arquivo).
+5. **Acesse o sistema pelo navegador usando seu domínio:**
+    ```
+    https://www.seusite.com.br
+    ```
 
-### 3.3. Execução
+---
 
-- Suba o projeto em um servidor web local ou use o embutido do PHP:
-```bash
-php -S localhost:8080 -t public/
-```
-- Acesse via navegador: [http://localhost:8080](http://localhost:8080)
+## Exemplos de Uso Real
 
-## 4. Estrutura de Diretórios
+- **Moradores podem buscar restaurantes abertos agora e pedir delivery pelo telefone do estabelecimento.**
+- **Comerciantes podem cadastrar sua loja e atualizar horários especiais (ex: feriados).**
+- **Visitantes podem explorar os principais pontos turísticos do bairro com mapa e avaliações de outros usuários.**
+- **Administradores podem aprovar novos cadastros e gerenciar categorias tudo via web.**
 
-- `public/` – Arquivos públicos (index.php, assets)
-- `src/` – Lógica de aplicação (controllers, models, helpers)
-- `views/` – Templates e páginas HTML/PHP
-- `config/` – Arquivos de configuração
-- `database/` – Scripts de banco de dados e seeds
-- `README.md` – Este arquivo
+---
 
-## 5. Exemplos de Uso
+## Estrutura de Diretórios
 
-- Encontrar todos os restaurantes do bairro em segundos.
-- Cadastrar seu próprio negócio local para aparecer nas buscas.
-- Filtrar estabelecimentos abertos agora ou com delivery.
-- Administrar facilmente as informações do seu comércio.
+- **public/** — Arquivos públicos (entrada do site, assets, imagens, CSS, JS)
+- **src/** — Código da aplicação (controllers, models, helpers)
+- **views/** — Templates HTML/PHP das páginas
+- **config/** — Arquivos de configuração do sistema e do banco de dados
+- **database/** — Scripts SQL para criação e seed do banco de dados
 
-## 6. Limitações
+---
 
-- Projeto voltado para uso comunitário ou como base para customizações.
-- Não indicado para grandes cidades sem customização de performance.
-- Requer configuração manual de ambiente em hospedagens compartilhadas.
+## Tecnologias Utilizadas
+
+- **PHP 7.4+**
+- **MySQL/MariaDB**
+- **HTML5, CSS3 (responsivo, mobile-first)**
+- **Composer** (opcional, para dependências)
+- **MVC Simplificado**
+
+---
 
 ## 7. Apoie o Projeto
 
