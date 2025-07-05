@@ -1,0 +1,24 @@
+// https://aka.ms/devcontainer.json
+{
+	"name": "Existing Docker Compose (Extend)",
+	"dockerComposeFile": [
+		"../compose.yml"
+	],
+	"service": "app",
+	"workspaceFolder": "/app",
+	"remoteUser": "local",
+	"postCreateCommand": "chown -R 1000:1000 /app 2>/dev/null || true",
+	"shutdownAction": "stopCompose",
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"DEVSENSE.phptools-vscode",
+                "DEVSENSE.profiler-php-vscode",
+                "zobo.php-intellisense",
+                "xdebug.php-debug",
+                "bmewburn.vscode-intelephense-client",
+                "xdebug.php-pack"
+			]
+		}
+	}
+}
