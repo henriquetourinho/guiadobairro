@@ -14,20 +14,6 @@ CREATE TABLE `administradores` (
   UNIQUE KEY `email` (`email`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Tabela: avaliacoes
-CREATE TABLE `avaliacoes` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `loja_id` int(11) NOT NULL,
-  `nome_avaliador` varchar(255) NOT NULL,
-  `nota` tinyint(4) NOT NULL COMMENT 'Nota de 1 a 5',
-  `comentario` text DEFAULT NULL,
-  `data_avaliacao` timestamp NULL DEFAULT current_timestamp(),
-  `status_avaliacao` enum('aprovada','pendente','reprovada') DEFAULT 'pendente',
-  PRIMARY KEY (`id`),
-  KEY `loja_id` (`loja_id`),
-  CONSTRAINT `avaliacoes_ibfk_1` FOREIGN KEY (`loja_id`) REFERENCES `lojas` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
 -- Tabela: bairros_permitidos
 CREATE TABLE `bairros_permitidos` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -73,31 +59,9 @@ CREATE TABLE `comercios_cnpj` (
   CONSTRAINT `comercios_cnpj_ibfk_1` FOREIGN KEY (`comerciante_id`) REFERENCES `comerciantes` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Tabela: contatos
-CREATE TABLE `contatos` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `loja_id` int(11) NOT NULL,
-  `tipo_contato` enum('telefone','whatsapp','email','instagram','telegram') NOT NULL,
-  `valor_contato` varchar(255) NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `loja_id` (`loja_id`),
-  CONSTRAINT `contatos_ibfk_1` FOREIGN KEY (`loja_id`) REFERENCES `lojas` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- Tabela: guia_config
-CREATE TABLE `guia_config` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `nome_guia` varchar(255) NOT NULL,
-  `descricao_guia` text DEFAULT NULL,
-  `link_politica_privacidade` varchar(255) DEFAULT NULL,
-  `link_termos_uso` varchar(255) DEFAULT NULL,
-  `email_contato` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
 -- Tabela: lojas
 CREATE TABLE `lojas` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
   `comerciante_id` int(11) NOT NULL,
   `categoria_id` int(11) NOT NULL,
   `nome_loja` varchar(255) NOT NULL,
@@ -116,4 +80,40 @@ CREATE TABLE `lojas` (
   CONSTRAINT `lojas_ibfk_1` FOREIGN KEY (`comerciante_id`) REFERENCES `comerciantes` (`id`) ON DELETE CASCADE,
   CONSTRAINT `lojas_ibfk_2` FOREIGN KEY (`categoria_id`) REFERENCES `categorias` (`id`),
   CONSTRAINT `fk_bairro_lojas` FOREIGN KEY (`bairro_id`) REFERENCES `bairros_permitidos` (`id`) ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- Tabela: contatos
+CREATE TABLE `contatos` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `loja_id` int(11) UNSIGNED NOT NULL,
+  `tipo_contato` enum('telefone','whatsapp','email','instagram','telegram') NOT NULL,
+  `valor_contato` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `loja_id` (`loja_id`),
+  CONSTRAINT `contatos_ibfk_1` FOREIGN KEY (`loja_id`) REFERENCES `lojas` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- Tabela: guia_config
+CREATE TABLE `guia_config` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nome_guia` varchar(255) NOT NULL,
+  `descricao_guia` text DEFAULT NULL,
+  `link_politica_privacidade` varchar(255) DEFAULT NULL,
+  `link_termos_uso` varchar(255) DEFAULT NULL,
+  `email_contato` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- Tabela: avaliacoes
+CREATE TABLE `avaliacoes` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `loja_id` int(11) UNSIGNED NOT NULL,
+  `nome_avaliador` varchar(255) NOT NULL,
+  `nota` tinyint(4) NOT NULL COMMENT 'Nota de 1 a 5',
+  `comentario` text DEFAULT NULL,
+  `data_avaliacao` timestamp NULL DEFAULT current_timestamp(),
+  `status_avaliacao` enum('aprovada','pendente','reprovada') DEFAULT 'pendente',
+  PRIMARY KEY (`id`),
+  KEY `loja_id` (`loja_id`),
+  CONSTRAINT `avaliacoes_ibfk_1` FOREIGN KEY (`loja_id`) REFERENCES `lojas` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
