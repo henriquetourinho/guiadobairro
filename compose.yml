@@ -1,0 +1,35 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        - UUID=${UID:-1000}
+        - GID=${GID:-1000}
+    ports:
+      - "9000:9000"
+    volumes:
+      - .:/app
+    depends_on:
+      - bd
+
+  bd:
+    image: mariadb:12.0-ubi-rc
+    environment:
+      MARIADB_ROOT_PASSWORD: ${MARIADB_ROOT_PASSWORD}
+      MARIADB_DATABASE: ${MARIADB_DATABASE:-guia_bairro}
+      MARIADB_USER: ${MARIADB_USER:-guia_bairro}
+      MARIADB_PASSWORD: ${MARIADB_PASSWORD}
+    ports:
+      - "3306:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+      - ./banco.sql:/docker-entrypoint-initdb.d/banco.sql
+
+networks:
+  default:
+    driver: bridge
+    name: guia-bairro-network
+
+volumes:
+  db_data:
